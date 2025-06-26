@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 import {
   Sheet,
   SheetContent,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
@@ -62,6 +64,9 @@ export function Header() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left">
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Menu Navigasi</SheetTitle>
+                </SheetHeader>
                 <SheetClose asChild>
                   <Link
                     href="/"
