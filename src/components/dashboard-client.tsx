@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { ArrowUp, ArrowDown, Loader2, Info, AlertTriangle, PolarAngleAxis } from "lucide-react";
+import { ArrowUp, ArrowDown, Loader2, Info, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { analyzeCryptoSentiment, type AnalyzeCryptoSentimentOutput } from "@/ai/flows/analyze-crypto-sentiment";
 import { useWallet } from "@/hooks/use-wallet";
@@ -16,7 +16,8 @@ import {
   Line,
   XAxis,
   YAxis,
-  CartesianGrid
+  CartesianGrid,
+  PolarAngleAxis
 } from "recharts";
 import type { Prediction } from "@/lib/types";
 
