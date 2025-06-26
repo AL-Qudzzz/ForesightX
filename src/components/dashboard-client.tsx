@@ -21,8 +21,7 @@ import {
   PolarAngleAxis
 } from "recharts";
 import type { Prediction } from "@/lib/types";
-
-const MOCK_HEADLINES = "Bitcoin hits new all-time high, Ethereum merge successful, Solana network experiences another outage, Dogecoin price pumps after celebrity tweet, SEC announces new crypto regulations.";
+import { generateNews } from "@/ai/flows/generate-news-flow";
 
 const ROUND_DURATION_SECONDS = 300; // 5 minutes
 
@@ -81,7 +80,10 @@ export function DashboardClient() {
     async function getSentiment() {
       setIsLoadingSentiment(true);
       try {
-        const result = await analyzeCryptoSentiment({ newsHeadlines: MOCK_HEADLINES });
+        const newsResult = await generateNews({ topic: "cryptocurrency" });
+        const headlines = newsResult.articles.map(a => a.title).join(', ');
+
+        const result = await analyzeCryptoSentiment({ newsHeadlines: headlines });
         setSentiment(result);
       } catch (error) {
         console.error("Error fetching sentiment:", error);

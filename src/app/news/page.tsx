@@ -1,50 +1,36 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Rss } from "lucide-react";
+"use client";
 
-const mockNews = [
-    {
-        id: 1,
-        title: "Bitcoin Mencapai Puncak Baru di Tengah Minat Institusional",
-        source: "CryptoNews Harian",
-        timestamp: "2024-10-26T10:00:00Z",
-        summary: "Harga Bitcoin melonjak hingga lebih dari $80.000, didorong oleh pengumuman pembelian besar dari investor institusional dan berita regulasi positif dari AS.",
-        url: "#"
-    },
-    {
-        id: 2,
-        title: "Penggabungan Ethereum Berhasil, Harga ETH Stabil",
-        source: "Blockchain Mingguan",
-        timestamp: "2024-10-25T15:30:00Z",
-        summary: "Pembaruan 'The Merge' Ethereum telah berhasil diselesaikan, memindahkan jaringan ke Proof-of-Stake dan mengurangi konsumsi energi secara signifikan. Harga ETH menunjukkan stabilitas pasca-pembaruan.",
-        url: "#"
-    },
-    {
-        id: 3,
-        title: "Jaringan Solana Mengalami Gangguan Lagi, Komunitas Prihatin",
-        source: "DeFi Times",
-        timestamp: "2024-10-25T09:00:00Z",
-        summary: "Jaringan Solana mengalami gangguan selama beberapa jam, yang terbaru dari serangkaian masalah teknis. Hal ini menimbulkan kekhawatiran tentang keandalan jaringan.",
-        url: "#"
-    },
-    {
-        id: 4,
-        title: "Harga Dogecoin Melonjak Setelah Cuitan Selebriti",
-        source: "MemeCoin Monitor",
-        timestamp: "2024-10-24T18:45:00Z",
-        summary: "Sebuah cuitan dari seorang selebriti terkenal menyebabkan lonjakan harga Dogecoin sebesar 25% dalam beberapa jam, menunjukkan volatilitas pasar koin meme.",
-        url: "#"
-    },
-    {
-        id: 5,
-        title: "SEC Mengumumkan Regulasi Kripto Baru",
-        source: "Regulator Watch",
-        timestamp: "2024-10-24T11:20:00Z",
-        summary: "Komisi Sekuritas dan Bursa AS (SEC) telah mengumumkan kerangka kerja peraturan baru untuk bursa kripto, yang bertujuan untuk meningkatkan perlindungan investor.",
-        url: "#"
-    }
-];
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Rss, Loader2, AlertTriangle } from "lucide-react";
+import { generateNews, type GenerateNewsOutput } from "@/ai/flows/generate-news-flow";
+
+type NewsArticle = GenerateNewsOutput["articles"][0];
 
 export default function NewsPage() {
+    const [news, setNews] = useState<NewsArticle[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        async function fetchNews() {
+            try {
+                setIsLoading(true);
+                setError(null);
+                const result = await generateNews({ topic: "cryptocurrency" });
+                const sortedArticles = result.articles.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+                setNews(sortedArticles);
+            } catch (e) {
+                console.error("Failed to fetch news:", e);
+                setError("Gagal memuat berita. Silakan coba lagi nanti.");
+            } finally {
+                setIsLoading(false);
+            }
+        }
+
+        fetchNews();
+    }, []);
+
     return (
         <div className="container py-8">
             <div className="flex items-center gap-4 mb-8">
@@ -52,28 +38,44 @@ export default function NewsPage() {
                     <Rss className="h-8 w-8 text-primary" />
                 </div>
                 <div>
-                    <h1 className="text-3xl font-headline font-bold">Umpan Berita Kripto</h1>
-                    <p className="text-muted-foreground">Berita utama terbaru yang membentuk pasar.</p>
+                    <h1 className="text-3xl font-headline font-bold">Umpan Berita Kripto Langsung</h1>
+                    <p className="text-muted-foreground">Berita utama terbaru yang dihasilkan AI yang membentuk pasar.</p>
                 </div>
             </div>
 
-            <div className="grid gap-6">
-                {mockNews.map((item) => (
-                    <Card key={item.id} className="hover:border-primary/50 transition-colors">
-                        <CardHeader>
-                            <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                <CardTitle className="font-headline text-lg">{item.title}</CardTitle>
-                            </a>
-                            <CardDescription>
-                                {item.source} - {new Date(item.timestamp).toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' })}
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <p className="text-muted-foreground">{item.summary}</p>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
+            {isLoading && (
+                <div className="flex justify-center items-center h-64">
+                    <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                    <p className="ml-4 text-muted-foreground">Memuat berita langsung...</p>
+                </div>
+            )}
+
+            {error && (
+                 <div className="flex flex-col items-center justify-center text-center text-destructive h-64">
+                    <AlertTriangle className="w-12 h-12 mb-4" />
+                    <p className="text-lg font-semibold">{error}</p>
+                </div>
+            )}
+            
+            {!isLoading && !error && (
+                <div className="grid gap-6">
+                    {news.map((item) => (
+                        <Card key={item.id} className="hover:border-primary/50 transition-colors">
+                            <CardHeader>
+                                <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                                    <CardTitle className="font-headline text-lg">{item.title}</CardTitle>
+                                </a>
+                                <CardDescription>
+                                    {item.source} - {new Date(item.timestamp).toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' })}
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">{item.summary}</p>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }
