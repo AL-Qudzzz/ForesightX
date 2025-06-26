@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo, useRef } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -264,8 +265,11 @@ export function DashboardClient() {
 
         <div className="space-y-8">
           <Card>
-            <CardHeader>
-              <CardTitle className="font-headline text-xl">AI Sentiment Analysis</CardTitle>
+            <CardHeader className="flex flex-row items-center justify-between pb-4">
+              <CardTitle className="font-headline text-xl">Analisis Sentimen AI</CardTitle>
+              <Link href="/news" className="text-sm text-primary hover:underline">
+                 Lihat Berita &rarr;
+              </Link>
             </CardHeader>
             <CardContent>
               {isLoadingSentiment ? (
@@ -299,7 +303,7 @@ export function DashboardClient() {
                         {sentiment.sentimentScore.toFixed(2)}
                       </text>
                        <text x="50%" y="65%" textAnchor="middle" dominantBaseline="middle" className="fill-muted-foreground text-sm">
-                        Score
+                        Skor
                       </text>
                     </RadialBarChart>
                   </ChartContainer>
@@ -318,25 +322,25 @@ export function DashboardClient() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle className="font-headline text-xl">Pool Information</CardTitle>
+              <CardTitle className="font-headline text-xl">Informasi Pool</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
               <div>
                 <h4 className="font-medium mb-2 text-base">BTC/USD Pool</h4>
                 <div className="pl-2 space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Prize Pool</span>
+                    <span className="text-muted-foreground">Total Hadiah</span>
                     <div className="text-right">
                       <span className="font-mono font-bold">1.52 BTC</span>
                       <span className="font-mono text-xs text-muted-foreground block">$100,000</span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Up Pool</span>
+                    <span className="text-muted-foreground">Pool Atas</span>
                     <span className="font-mono text-green-400">0.80 BTC</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Down Pool</span>
+                    <span className="text-muted-foreground">Pool Bawah</span>
                     <span className="font-mono text-red-400">0.72 BTC</span>
                   </div>
                 </div>
@@ -346,18 +350,18 @@ export function DashboardClient() {
                 <h4 className="font-medium mb-2 text-base">ETH/USD Pool</h4>
                 <div className="pl-2 space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Prize Pool</span>
+                    <span className="text-muted-foreground">Total Hadiah</span>
                     <div className="text-right">
                       <span className="font-mono font-bold">25.5 ETH</span>
                       <span className="font-mono text-xs text-muted-foreground block">$90,000</span>
                     </div>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Up Pool</span>
+                    <span className="text-muted-foreground">Pool Atas</span>
                     <span className="font-mono text-green-400">15.0 ETH</span>
                   </div>
                   <div className="flex justify-between items-center">
-                    <span className="text-muted-foreground">Down Pool</span>
+                    <span className="text-muted-foreground">Pool Bawah</span>
                     <span className="font-mono text-red-400">10.5 ETH</span>
                   </div>
                 </div>
