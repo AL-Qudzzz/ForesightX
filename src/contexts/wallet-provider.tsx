@@ -32,10 +32,10 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         setAddress(accounts[0]);
         setSigner(signerInstance);
       } catch (error) {
-        console.error("Failed to connect wallet:", error);
+        console.error("Gagal menghubungkan dompet:", error);
       }
     } else {
-      alert("MetaMask is not installed. Please install it to use this feature.");
+      alert("MetaMask tidak terinstal. Silakan instal untuk menggunakan fitur ini.");
     }
   }, []);
 
