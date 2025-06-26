@@ -49,7 +49,7 @@ export function DashboardClient() {
 
   useEffect(() => {
     const dataInterval = setInterval(() => {
-        const newPrice = lastPriceRef.current + (Math.random() - 0.5) * 200;
+        const newPrice = lastPriceRef.current + (Math.random() - 0.5) * 500;
         lastPriceRef.current = newPrice;
         const newPoint = { time: Date.now(), price: newPrice };
         
@@ -192,7 +192,7 @@ export function DashboardClient() {
                             tickLine={false}
                             axisLine={false}
                             tickMargin={8}
-                            domain={['dataMin - 200', 'dataMax + 200']}
+                            domain={['dataMin - 500', 'dataMax + 500']}
                             tickFormatter={(value) => `$${(value / 1000).toFixed(1)}k`}
                         />
                         <ChartTooltip
@@ -322,15 +322,24 @@ export function DashboardClient() {
             <CardContent className="space-y-4 text-sm">
                <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Prize Pool</span>
-                  <span className="font-mono font-bold text-lg">10.43 ETH</span>
+                  <div className="text-right">
+                    <span className="font-mono font-bold text-lg">10.43 ETH</span>
+                    <span className="font-mono text-xs text-muted-foreground block">$36,505</span>
+                  </div>
               </div>
               <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Up Pool</span>
-                  <span className="font-mono text-green-400">5.21 ETH</span>
+                  <div className="text-right">
+                    <span className="font-mono text-green-400">5.21 ETH</span>
+                    <span className="font-mono text-xs text-muted-foreground block">$18,235</span>
+                  </div>
               </div>
               <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Down Pool</span>
-                  <span className="font-mono text-red-400">5.22 ETH</span>
+                  <div className="text-right">
+                    <span className="font-mono text-red-400">5.22 ETH</span>
+                    <span className="font-mono text-xs text-muted-foreground block">$18,270</span>
+                  </div>
               </div>
             </CardContent>
           </Card>
