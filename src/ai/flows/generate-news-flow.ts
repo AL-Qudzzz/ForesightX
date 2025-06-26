@@ -30,12 +30,12 @@ const NewsArticleSchema = z.object({
   url: z.string().describe('A placeholder URL, should just be "#".'),
 });
 
-export const GenerateNewsOutputSchema = z.object({
+const GenerateNewsOutputSchema = z.object({
   articles: z.array(NewsArticleSchema),
 });
 export type GenerateNewsOutput = z.infer<typeof GenerateNewsOutputSchema>;
 
-export const GenerateNewsInputSchema = z.object({
+const GenerateNewsInputSchema = z.object({
   topic: z
     .string()
     .default('cryptocurrency')
