@@ -36,7 +36,7 @@ export function WalletConnectButton() {
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={disconnectWallet}>
             <LogOut className="mr-2 h-4 w-4" />
-            <span>Disconnect</span>
+            <span>Putuskan Koneksi</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -49,7 +49,7 @@ export function WalletConnectButton() {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.2 }}
     >
-      <Button onClick={connectWallet}>Connect Wallet</Button>
+      <Button onClick={connectWallet}>Hubungkan Wallet</Button>
     </motion.div>
   );
 }

@@ -61,8 +61,8 @@ export function DashboardClient() {
     if (!isConnected) {
       toast({
         variant: "destructive",
-        title: "Wallet Not Connected",
-        description: "Please connect your wallet to make a prediction.",
+        title: "Wallet Tidak Terhubung",
+        description: "Silakan hubungkan wallet Anda untuk membuat prediksi.",
       });
       return;
     }
@@ -141,9 +141,9 @@ export function DashboardClient() {
               <Card className="bg-accent/10 border-accent/50 text-center">
                 <CardContent className="p-6">
                   <Info className="mx-auto h-8 w-8 text-accent mb-2" />
-                  <h3 className="font-bold">Connect Wallet to Participate</h3>
-                  <p className="text-muted-foreground text-sm mb-4">You need to connect your wallet before you can make a prediction.</p>
-                  <Button onClick={connectWallet} variant="secondary">Connect Wallet</Button>
+                  <h3 className="font-bold">Hubungkan Wallet untuk Berpartisipasi</h3>
+                  <p className="text-muted-foreground text-sm mb-4">Anda perlu menghubungkan wallet Anda sebelum dapat membuat prediksi.</p>
+                  <Button onClick={connectWallet} variant="secondary">Hubungkan Wallet</Button>
                 </CardContent>
               </Card>
             )}
