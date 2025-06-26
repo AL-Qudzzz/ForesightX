@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { analyzeCryptoSentiment, type AnalyzeCryptoSentimentOutput } from "@/ai/flows/analyze-crypto-sentiment";
 import { useWallet } from "@/hooks/use-wallet";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { RadialBar, RadialBarChart } from "recharts";
+import { RadialBar, RadialBarChart, PolarAngleAxis } from "recharts";
 import type { Prediction } from "@/lib/types";
 
 const MOCK_HEADLINES = "Bitcoin hits new all-time high, Ethereum merge successful, Solana network experiences another outage, Dogecoin price pumps after celebrity tweet, SEC announces new crypto regulations.";
