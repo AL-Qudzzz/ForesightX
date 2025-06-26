@@ -36,7 +36,7 @@ export function ProfileClient() {
               <User className="h-8 w-8 text-primary" />
             </div>
             <div>
-              <CardTitle className="font-headline text-2xl">User Profile</CardTitle>
+              <CardTitle className="font-heading text-2xl">User Profile</CardTitle>
               <CardDescription>Your prediction history and wallet information.</CardDescription>
             </div>
           </div>
@@ -54,53 +54,55 @@ export function ProfileClient() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="font-headline">Prediction History</CardTitle>
+          <CardTitle className="font-heading">Prediction History</CardTitle>
         </CardHeader>
         <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Round</TableHead>
-                <TableHead>Asset</TableHead>
-                <TableHead>Prediction</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Date</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {predictions.length > 0 ? (
-                predictions.map((p) => (
-                  <TableRow key={p.id}>
-                    <TableCell className="font-medium">{p.round}</TableCell>
-                    <TableCell>{p.asset}</TableCell>
-                    <TableCell>
-                      {p.prediction === "UP" ? (
-                        <div className="flex items-center gap-2 text-green-400">
-                          <ArrowUp className="h-4 w-4" /> UP
-                        </div>
-                      ) : (
-                        <div className="flex items-center gap-2 text-red-400">
-                          <ArrowDown className="h-4 w-4" /> DOWN
-                        </div>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                       <Badge variant={p.status === 'PENDING' ? 'secondary' : 'default'} className="capitalize">
-                        {p.status.toLowerCase()}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>{new Date(p.timestamp).toLocaleString()}</TableCell>
-                  </TableRow>
-                ))
-              ) : (
+          <div className="relative w-full overflow-auto">
+            <Table>
+              <TableHeader>
                 <TableRow>
-                  <TableCell colSpan={5} className="text-center h-24">
-                    No prediction history found.
-                  </TableCell>
+                  <TableHead>Round</TableHead>
+                  <TableHead>Asset</TableHead>
+                  <TableHead>Prediction</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Date</TableHead>
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {predictions.length > 0 ? (
+                  predictions.map((p) => (
+                    <TableRow key={p.id}>
+                      <TableCell className="font-medium">{p.round}</TableCell>
+                      <TableCell>{p.asset}</TableCell>
+                      <TableCell>
+                        {p.prediction === "UP" ? (
+                          <div className="flex items-center gap-2 text-green-400">
+                            <ArrowUp className="h-4 w-4" /> UP
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-2 text-red-400">
+                            <ArrowDown className="h-4 w-4" /> DOWN
+                          </div>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                         <Badge variant={p.status === 'PENDING' ? 'secondary' : 'default'} className="capitalize">
+                          {p.status.toLowerCase()}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>{new Date(p.timestamp).toLocaleString()}</TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={5} className="text-center h-24">
+                      No prediction history found.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
         </CardContent>
       </Card>
     </div>

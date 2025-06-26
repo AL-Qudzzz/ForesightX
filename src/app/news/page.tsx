@@ -38,7 +38,7 @@ export default function NewsPage() {
                     <Rss className="h-8 w-8 text-primary" />
                 </div>
                 <div>
-                    <h1 className="text-3xl font-headline font-bold">Umpan Berita Kripto Langsung</h1>
+                    <h1 className="text-3xl font-heading font-bold">Umpan Berita Kripto Langsung</h1>
                     <p className="text-muted-foreground">Berita utama terbaru yang dihasilkan AI yang membentuk pasar.</p>
                 </div>
             </div>
@@ -63,7 +63,7 @@ export default function NewsPage() {
                         <Card key={item.id} className="hover:border-primary/50 transition-colors">
                             <CardHeader>
                                 <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                                    <CardTitle className="font-headline text-lg">{item.title}</CardTitle>
+                                    <CardTitle className="font-heading text-lg">{item.title}</CardTitle>
                                 </a>
                                 <CardDescription>
                                     {item.source} - {new Date(item.timestamp).toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' })}

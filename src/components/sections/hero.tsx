@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section className="container grid lg:grid-cols-2 place-items-center py-20 md:py-32 gap-10">
       <div className="text-center lg:text-start space-y-6">
-        <main className="text-5xl md:text-6xl font-headline font-bold">
+        <main className="text-5xl md:text-6xl font-heading font-bold">
           <h1 className="inline">
             <span className="inline bg-gradient-to-r from-primary via-accent to-primary text-transparent bg-clip-text">
               Predict
@@ -31,16 +31,16 @@ export function Hero() {
         <div className="space-y-4 md:space-y-0 md:space-x-4">
           <Link href="/dashboard">
             <Button className="w-full md:w-1/3 group">
-              Get Started <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              Get Started{" "}
+              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </Link>
         </div>
       </div>
 
-      <div className="z-10">
-         <Cpu
-          size={200}
-          className="text-primary/70 animate-pulse"
+      <div className="z-10 flex items-center justify-center">
+        <Cpu
+          className="h-40 w-40 animate-pulse text-primary/70 md:h-52 md:w-52"
           strokeWidth={1}
         />
       </div>

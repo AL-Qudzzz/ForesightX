@@ -72,7 +72,7 @@ export function AdvisorClient() {
               <Bot className="h-8 w-8 text-primary" />
             </div>
             <div>
-                <CardTitle className="font-headline text-2xl">Penasihat Kripto AI</CardTitle>
+                <CardTitle className="font-heading text-2xl">Penasihat Kripto AI</CardTitle>
                 <CardDescription>Tanyakan apa saja tentang pasar kripto. Saya di sini untuk membantu Anda menganalisis.</CardDescription>
             </div>
         </CardHeader>

@@ -31,7 +31,7 @@ const features: FeatureProps[] = [
 export const HowItWorks = () => {
   return (
     <section id="howItWorks" className="container text-center py-24 sm:py-32">
-      <h2 className="text-3xl md:text-4xl font-headline font-bold">
+      <h2 className="text-3xl md:text-4xl font-heading font-bold">
         How It{" "}
         <span className="bg-gradient-to-r from-primary to-accent text-transparent bg-clip-text">
           Works
@@ -51,7 +51,7 @@ export const HowItWorks = () => {
               <div className="w-12 h-12 bg-primary/20 text-primary rounded-full flex items-center justify-center mb-4">
                 {icon}
               </div>
-              <CardTitle className="font-headline">{title}</CardTitle>
+              <CardTitle className="font-heading">{title}</CardTitle>
             </CardHeader>
 
             <CardContent>{description}</CardContent>

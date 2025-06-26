@@ -207,7 +207,7 @@ export function DashboardClient() {
             <CardHeader>
               <div className="flex justify-between items-center">
                 <div>
-                  <CardTitle className="font-headline text-2xl">Active Round #{roundId}</CardTitle>
+                  <CardTitle className="font-heading text-2xl">Active Round #{roundId}</CardTitle>
                   <CardDescription>Predict the price of BTC/USD</CardDescription>
                 </div>
                 <div className="text-right">
@@ -311,7 +311,7 @@ export function DashboardClient() {
           <div className="space-y-8">
             <Card className="flex flex-col">
               <CardHeader className="flex flex-row items-center justify-between pb-4">
-                <CardTitle className="font-headline text-xl">Analisis Sentimen AI</CardTitle>
+                <CardTitle className="font-heading text-xl">Analisis Sentimen AI</CardTitle>
                 <Link href="/news" className="text-sm text-primary hover:underline">
                    Lihat Berita &rarr;
                 </Link>
@@ -373,7 +373,7 @@ export function DashboardClient() {
             </Card>
             <Card>
               <CardHeader>
-                <CardTitle className="font-headline text-xl">Informasi Pool</CardTitle>
+                <CardTitle className="font-heading text-xl">Informasi Pool</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 text-sm">
                 <div>
@@ -425,7 +425,7 @@ export function DashboardClient() {
       <Dialog open={isReportDialogOpen} onOpenChange={setIsReportDialogOpen}>
         <DialogContent className="sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="font-headline text-2xl">Laporan Pasar AI</DialogTitle>
+            <DialogTitle className="font-heading text-2xl">Laporan Pasar AI</DialogTitle>
             <DialogDescription>
               Analisis terperinci berdasarkan berita utama terbaru.
             </DialogDescription>
@@ -441,11 +441,11 @@ export function DashboardClient() {
               <ScrollArea className="h-96 pr-6">
                 <div className="space-y-6">
                   <div>
-                    <h3 className="font-headline text-lg font-semibold mb-2">Ringkasan Pasar</h3>
+                    <h3 className="font-heading text-lg font-semibold mb-2">Ringkasan Pasar</h3>
                     <p className="text-muted-foreground">{marketReport.summary}</p>
                   </div>
                   <div>
-                    <h3 className="font-headline text-lg font-semibold mb-2">Tren Kunci Teridentifikasi</h3>
+                    <h3 className="font-heading text-lg font-semibold mb-2">Tren Kunci Teridentifikasi</h3>
                     <ul className="list-disc list-inside space-y-2 text-muted-foreground">
                       {marketReport.keyTrends.map((trend, index) => (
                         <li key={index}>{trend}</li>
@@ -453,7 +453,7 @@ export function DashboardClient() {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="font-headline text-lg font-semibold mb-2">Tingkat Kepercayaan Analisis</h3>
+                    <h3 className="font-heading text-lg font-semibold mb-2">Tingkat Kepercayaan Analisis</h3>
                     <div className="flex items-center gap-4">
                       <Progress value={marketReport.confidence} className="w-full" />
                       <span className="font-mono font-bold">{marketReport.confidence}%</span>
