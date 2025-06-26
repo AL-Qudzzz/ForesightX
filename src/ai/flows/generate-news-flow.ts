@@ -53,9 +53,9 @@ const prompt = ai.definePrompt({
   name: 'generateNewsPrompt',
   input: {schema: GenerateNewsInputSchema},
   output: {schema: GenerateNewsOutputSchema},
-  prompt: `You are a financial news AI. Generate 5 recent, realistic, but fictional news articles about the topic of {{{topic}}}.
+  prompt: `You are a financial news AI. It is currently the year 2025. Generate 5 recent, realistic, but fictional news articles about the topic of {{{topic}}}.
 
-      The news should be varied, covering different cryptocurrencies, market trends, and regulatory news. Make the timestamps recent, within the last 48 hours. The source should be a plausible but fictional news outlet name. The URL should always be '#'.
+      The news should be varied, covering different cryptocurrencies, market trends, and regulatory news. Make the timestamps recent, as if it's currently mid-2025 (e.g., within the last 48 hours of a date in June 2025). The source should be a plausible but fictional news outlet name. The URL should always be '#'.
       `,
 });
 
