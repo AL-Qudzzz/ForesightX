@@ -3,7 +3,8 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ArrowUp, ArrowDown, Loader2, Info, AlertTriangle } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { ArrowUp, ArrowDown, Loader2, Info, AlertTriangle, PolarAngleAxis } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { analyzeCryptoSentiment, type AnalyzeCryptoSentimentOutput } from "@/ai/flows/analyze-crypto-sentiment";
 import { useWallet } from "@/hooks/use-wallet";
@@ -11,7 +12,6 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/
 import { 
   RadialBar, 
   RadialBarChart, 
-  PolarAngleAxis,
   LineChart,
   Line,
   XAxis,
@@ -320,26 +320,46 @@ export function DashboardClient() {
               <CardTitle className="font-headline text-xl">Pool Information</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 text-sm">
-               <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Prize Pool</span>
-                  <div className="text-right">
-                    <span className="font-mono font-bold text-lg">10.43 ETH</span>
-                    <span className="font-mono text-xs text-muted-foreground block">$36,505</span>
+              <div>
+                <h4 className="font-medium mb-2 text-base">BTC/USD Pool</h4>
+                <div className="pl-2 space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Prize Pool</span>
+                    <div className="text-right">
+                      <span className="font-mono font-bold">1.52 BTC</span>
+                      <span className="font-mono text-xs text-muted-foreground block">$100,000</span>
+                    </div>
                   </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Up Pool</span>
+                    <span className="font-mono text-green-400">0.80 BTC</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Down Pool</span>
+                    <span className="font-mono text-red-400">0.72 BTC</span>
+                  </div>
+                </div>
               </div>
-              <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Up Pool</span>
-                  <div className="text-right">
-                    <span className="font-mono text-green-400">5.21 ETH</span>
-                    <span className="font-mono text-xs text-muted-foreground block">$18,235</span>
+              <Separator />
+              <div>
+                <h4 className="font-medium mb-2 text-base">ETH/USD Pool</h4>
+                <div className="pl-2 space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Prize Pool</span>
+                    <div className="text-right">
+                      <span className="font-mono font-bold">25.5 ETH</span>
+                      <span className="font-mono text-xs text-muted-foreground block">$90,000</span>
+                    </div>
                   </div>
-              </div>
-              <div className="flex justify-between items-center">
-                  <span className="text-muted-foreground">Down Pool</span>
-                  <div className="text-right">
-                    <span className="font-mono text-red-400">5.22 ETH</span>
-                    <span className="font-mono text-xs text-muted-foreground block">$18,270</span>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Up Pool</span>
+                    <span className="font-mono text-green-400">15.0 ETH</span>
                   </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Down Pool</span>
+                    <span className="font-mono text-red-400">10.5 ETH</span>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
