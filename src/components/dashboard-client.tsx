@@ -1,19 +1,39 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ArrowUp, ArrowDown, Loader2, BarChart, Info, AlertTriangle } from "lucide-react";
+import { ArrowUp, ArrowDown, Loader2, Info, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { analyzeCryptoSentiment, type AnalyzeCryptoSentimentOutput } from "@/ai/flows/analyze-crypto-sentiment";
 import { useWallet } from "@/hooks/use-wallet";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { RadialBar, RadialBarChart, PolarAngleAxis } from "recharts";
+import { 
+  RadialBar, 
+  RadialBarChart, 
+  PolarAngleAxis,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid
+} from "recharts";
 import type { Prediction } from "@/lib/types";
 
 const MOCK_HEADLINES = "Bitcoin hits new all-time high, Ethereum merge successful, Solana network experiences another outage, Dogecoin price pumps after celebrity tweet, SEC announces new crypto regulations.";
 
 const ROUND_DURATION_SECONDS = 300; // 5 minutes
+
+const generateInitialData = () => {
+    const data = [];
+    const now = Date.now();
+    let price = 65000 + (Math.random() - 0.5) * 2000;
+    for (let i = 30; i > 0; i--) {
+        price += (Math.random() - 0.5) * 100;
+        data.push({ time: now - i * 2000, price: price });
+    }
+    return data;
+};
 
 export function DashboardClient() {
   const { toast } = useToast();
@@ -24,8 +44,22 @@ export function DashboardClient() {
   const [timeLeft, setTimeLeft] = useState(ROUND_DURATION_SECONDS);
   const [roundId, setRoundId] = useState(Math.floor(Date.now() / (ROUND_DURATION_SECONDS * 1000)));
 
+  const [chartData, setChartData] = useState(generateInitialData());
+  const lastPriceRef = useRef(chartData.length > 0 ? chartData[chartData.length - 1].price : 65000);
+
   useEffect(() => {
-    const interval = setInterval(() => {
+    const dataInterval = setInterval(() => {
+        const newPrice = lastPriceRef.current + (Math.random() - 0.5) * 200;
+        lastPriceRef.current = newPrice;
+        const newPoint = { time: Date.now(), price: newPrice };
+        
+        setChartData(prevData => {
+            const newData = [...prevData, newPoint];
+            return newData.slice(Math.max(newData.length - 30, 0));
+        });
+    }, 2000);
+
+    const roundInterval = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
           setRoundId(Math.floor(Date.now() / (ROUND_DURATION_SECONDS * 1000)));
@@ -34,7 +68,11 @@ export function DashboardClient() {
         return prev - 1;
       });
     }, 1000);
-    return () => clearInterval(interval);
+
+    return () => {
+      clearInterval(dataInterval);
+      clearInterval(roundInterval);
+    };
   }, []);
   
   useEffect(() => {
@@ -132,9 +170,49 @@ export function DashboardClient() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="aspect-[2/1] bg-muted/30 rounded-lg flex items-center justify-center p-4 my-4">
-              <BarChart className="w-24 h-24 text-muted-foreground/50" />
-              <p className="absolute text-muted-foreground">Live Chart Coming Soon</p>
+            <div className="aspect-[2/1] bg-muted/30 rounded-lg p-4 my-4">
+                <ChartContainer
+                    config={{
+                        price: { label: "Price (USD)", color: "hsl(var(--primary))" },
+                    }}
+                >
+                    <LineChart
+                        data={chartData}
+                        margin={{ top: 5, right: 10, left: 10, bottom: 0 }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                        <XAxis
+                            dataKey="time"
+                            tickLine={false}
+                            axisLine={false}
+                            tickMargin={8}
+                            tickFormatter={(value) => new Date(value).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        />
+                        <YAxis
+                            tickLine={false}
+                            axisLine={false}
+                            tickMargin={8}
+                            domain={['dataMin - 200', 'dataMax + 200']}
+                            tickFormatter={(value) => `$${(value / 1000).toFixed(1)}k`}
+                        />
+                        <ChartTooltip
+                            cursor={true}
+                            content={
+                                <ChartTooltipContent
+                                    indicator="dot"
+                                    formatter={(value) => `$${Number(value).toFixed(2)}`}
+                                />
+                            }
+                        />
+                        <Line
+                            type="monotone"
+                            dataKey="price"
+                            stroke="var(--color-price)"
+                            strokeWidth={2}
+                            dot={false}
+                        />
+                    </LineChart>
+                </ChartContainer>
             </div>
             
             {!isConnected && (
